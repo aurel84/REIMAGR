@@ -15,7 +15,7 @@ fCreatePackages() {
   for items in "$pathToReimagr"/Apps/*
   do
 
-    newPath=${items#$deletedPath}
+    newPath=${items#$deletedPath} # subtracts '/Volumes/REIMAGR/Apps/<Application.app>' from '/Volumes/REIMGR/Apps/<Application.app>'
 
     productbuild --component "$pathToReimagr"/Apps/"$newPath" /Applications/ "$pathToReimagr"/Deployments/"$newPath".pkg
 
@@ -45,7 +45,7 @@ fInstallPackages()  {
   for items in /Users/Shared/*
   do
 
-    echo "--installpackage '$items'" # We need to double quote $items to preserve spaces
+    echo "--installpackage '$items'" # We need to double quote $items to preserve spaces for pkgs in /Users/Shard/
 
   done
 
