@@ -15,7 +15,7 @@ fCreatePackages() {
   for items in "$pathToReimagr"/Apps/*
   do
 
-    newPath=${items#$deletedPath} # subtracts '/Volumes/REIMAGR/Apps/' from '/Volumes/REIMGR/Apps/<Application.app>'
+    newPath=${items#$deletedPath} # subtracts '/Volumes/REIMAGR/Apps/' from '/Volumes/REIMAGR/Apps/<Application.app>'
 
     productbuild --component "$pathToReimagr"/Apps/"$newPath" /Applications/ "$pathToReimagr"/Deployments/"$newPath".pkg
 
