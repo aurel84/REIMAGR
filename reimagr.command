@@ -123,7 +123,7 @@ fDefaultCustomizations() {
 
   fi
 
-  # custom wallpaper
+  # custom profile picture
   echo "Checking if there is is a custom profile picture to be loaded onto image..."
   if [ "$(ls "$pathToReimagr"/Customizations/Profile\ Picture/*)" ]; then
 
