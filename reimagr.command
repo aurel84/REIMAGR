@@ -3,7 +3,7 @@
 ### Variables ###
 USER=$(stat -f %Su "/dev/console")
 pathToReimagr="/Volumes/REIMAGR/"
-pathToOSX="/Volumes/Macintosh\ HD/"
+pathToOSX="/Volumes/Macintosh HD/"
 deletedPath="/Volumes/REIMAGR/Apps/"
 startReimage="/Volumes/REIMAGR/reimagr.command"
 
