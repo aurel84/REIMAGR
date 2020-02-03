@@ -2,7 +2,10 @@
 
 ### Variables ###
 USER=$(stat -f %Su "/dev/console")
+pathToReimagr="/Volumes/REIMAGR/"
+pathToOSX="/Volumes/Macintosh\ HD/"
 deletedPath="/Volumes/REIMAGR/Apps/"
+startReimage="/Volumes/REIMAGR/reimagr.command"
 
 ### function to convert apps to distributions pkgs, and finally copying them over to /Users/Shared/ ###
 fCreatePackages() {
@@ -13,13 +16,13 @@ fCreatePackages() {
 
     newPath=${items#$deletedPath}
 
-    productbuild --component /Volumes/REIMAGR/Apps/"$newPath" /Applications/ /Volumes/REIMAGR/Deployments/"$newPath".pkg
+    productbuild --component "$pathToReimagr"/Apps/"$newPath" /Applications/ "$pathToReimagr"/Deployments/"$newPath".pkg
 
   done
 
   echo "Done converting apps to distribution pkgs."
 
-  /Volumes/reimagr.command
+  $startReimage
 
 }
 
@@ -27,11 +30,11 @@ fCreatePackages() {
 fCopyPKGStoLocal()  {
 
   echo "Copying distribution pkgs from REIMAGR to /Users/Shared..."
-  rsync -av --progress /Volumes/REIMAGR/Deployments/* /Volumes/Macintosh\ HD/Users/Shared
+  rsync -av --progress "$pathToReimagr"/Deployments/* "$pathToOSX"/Users/Shared
 
   echo "Finished with this step."
 
-  /Volumes/reimagr.command
+  $startReimage
 
 }
 
@@ -48,9 +51,9 @@ fInstallPackages()  {
 }
 
 ### function to get the wallpaper in the wallpaper folder and store it ###
-fWallapper()  {
+fWallpaper()  {
 
-  for wallpaper in /Volumes/REIMAGR/Customizations/Wallpaper/*
+  for wallpaper in "$pathToReimagr"/Customizations/Wallpaper/*
   do
 
     echo "$wallpaper"
@@ -62,7 +65,7 @@ fWallapper()  {
 ### function to wipe, re-image, and install applications ###
 fWipeAndReimage() {
 
-  CMD=$(echo "/Volumes/REIMAGR/Install macOS"*.app/Contents/Resources/startosinstall --agreetolicense --nointeraction $(fInstallPackages) --eraseinstall)
+  CMD=$(echo "/Volumes/REIMAGR/Install macOS"*.app/Contents/Resources/startosinstall --agreetolicense --nointeraction "$(fInstallPackages)" --eraseinstall)
 
   echo
   echo "This action will WIPE and REIMAGE this MacBook.  All data will be erased."
@@ -73,26 +76,65 @@ fWipeAndReimage() {
 
   case $CONFIRMWIPE in
       1 ) eval "$CMD" ;;
-      2 ) /Volumes/reimagr.command ;;
+      2 ) $startReimage ;;
   esac
 
 }
 
 ### function to load the customized Dock, Wallpaper, admin profile picture for Ultragenyx ###
-fDefaultDockAndDesktop() {
+fDefaultCustomizations() {
 
-  echo "Updating the Dock settings for all users..."
-  cp /Volumes/MAC_FILES/Appearance/Dock/com.apple.dock.plist /Volumes/Macintosh\ HD/System/Library/User\ Template/English.lproj/Library/Preferences/
+  # custom dock
+  echo "Checking if there is a custom dock to be loaded onto image..."
+  if [ "$(ls "$pathToReimagr"/Customizations/Dock/*)" ]; then
 
-  echo "Renaming the default wallpaper for Catalina to Catalina.orignal.heic..."
-  mv /Volumes/Macintosh\ HD/System/Library/Desktop\ Pictures/Catalina.heic /Volumes/Macintosh\ HD/System/Library/Desktop\ Pictures/Catalina.original.heic
+    echo "Updating the Dock settings for all users."
+    cp "$pathToReimagr"/Customizations/Dock/com.apple.dock.plist "$pathToOSX"/System/Library/User\ Template/English.lproj/Library/Preferences/
 
-  echo "Copying the wallpaper from REIMAGR to MAC OSX and naming it Catalina.heic..."
-  rsync -av --progress /Volumes/REIMAGR/Customizations/Wallpaper/"$(fWallpaper)" /Volumes/Macintosh\ HD/System/Library/Desktop\ Pictures/Catalina.heic
+  fi
+
+  #custom login window
+  echo "Checking if there is a custom Login Window to be loaded onto image..."
+  if [ "$(ls "$pathToReimagr"/Customizations/Dock/*)" ]; then
+
+    echo "Updating the Login Window for all users."
+    cp "$pathToReimagr"/Customizations/LoginWindow/com.apple.loginwindow.plist "$pathToOSX"/System/Library/User\ Template/English.lproj/Library/Preferences/
+
+  fi
+
+  # custom bookmarks
+  echo "Checking if there are any User-Specific Bookmarks to be loaded onto image..."
+  if [ "$(ls "$pathToReimagr"/Customizations/Bookmarks/*.webloc)" ]; then
+
+    echo "Adding User Specific Bookmarks to /Users/Shared."
+    cp "$pathToReimagr"/Customizations/Bookmarks/* "$pathToOSX"/Users/Shared/
+
+  fi
+
+  # custom wallpaper
+  echo "Checking if there is is a custom wallpaper to be loaded onto image..."
+  if [ "$(ls "$pathToReimagr"/Customizations/Wallpaper/*)" ]; then
+
+    echo "Yes, found one... renaming the default wallpaper for Catalina to Catalina.orignal.heic..."
+    mv "$pathToOSX"/System/Library/Desktop\ Pictures/Catalina.heic "$pathToOSX"/System/Library/Desktop\ Pictures/Catalina.original.heic
+
+    echo "Copying the wallpaper from REIMAGR to MAC OSX and naming it Catalina.heic."
+    cp "$(fWallpaper)" "$pathToOSX"/System/Library/Desktop\ Pictures/Catalina.heic
+
+  fi
+
+  # custom wallpaper
+  echo "Checking if there is is a custom profile picture to be loaded onto image..."
+  if [ "$(ls "$pathToReimagr"/Customizations/Profile\ Picture/*)" ]; then
+
+    echo "Copying the profile picture folder from REIMAGR to MAC OSX"
+    cp "$pathToReimagr"/Customizations/My\ Profile\ Picture "$pathToOSX"/Library/User Pictures/
+
+  fi
 
   echo "Finished with customizations."
 
-  /Volumes/reimagr.command
+  $startReimage
 
 }
 
@@ -106,7 +148,10 @@ fRunFirstAid() {
   if [ "$checkVolume" != 0 ]; then
 
     echo "Finished scanning Volume, permissions appear to be OK";
-    /Volumes/reimagr.command
+
+    echo "Finished with this step."
+
+    $startReimage
 
   else
 
@@ -114,13 +159,9 @@ fRunFirstAid() {
 
     echo "Finished with this step."
 
-    /Volumes/reimagr.command
+    $startReimage
 
   fi
-
-  echo "Finished with this step."
-
-  /Volumes/reimagr.command
 
 }
 
@@ -146,17 +187,17 @@ fReboot() {
 fCredits()  {
 
   echo
-  echo " ########################################################################################### "
-  echo " ############################# Author and Credits ########################################## "
-  echo " ########################################################################################### "
+  echo " ######################################################################################### "
+  echo " ############################# Author and Credits ######################################## "
+  echo " ######################################################################################### "
   echo
   echo " Author: John Hawkins | Email: johnhawkins3d@gmail.com"
   echo
-  echo " Other Contributors: The portion of this script that runs the wipe routine was..."
+  echo " Credits: The portion of this script that runs the wipe routine was..."
   echo " ...modified from Greg Neagle's Installr.sh: https://github.com/munki/installr   "
   echo
 
-  /Volumes/reimagr.command
+  $startReimage
 
 }
 
@@ -182,8 +223,8 @@ echo "    2  Copy Distro PKGS from REIMAGR to MAC OSX Volume <---- Run in Deskto
 echo "    3  Wipe & Reimage MacBook, and install all Apps <------- Run in Desktop Mode ########### "
 echo "    4  Update the Default Desktop Wallpaper and Dock <------ Run in Recovery Mode ########## "
 echo "    5  Check integrity of MAC OSX Volume <------------------ Run in Desktop or Recovery Mode "
-echo "    6  Reboot MAC OSX  <------------------------------------ Run in Desktop or Recovery Mode "
-echo "    7  Authors and Credits <-------------------------------- Run in Desktop or Recovery Mode "
+echo "    6  Reboot MAC OSX <------------------------------------- Run in Desktop or Recovery Mode "
+echo "    7  Author and Credits <--------------------------------- Run in Desktop or Recovery Mode "
 echo "    8  Exit script and close Terminal <--------------------- Run in Desktop or Recovery Mode "
 echo
 read -r -p "Pick an action # (1-8): " MAKESELECTION
@@ -193,7 +234,7 @@ case $MAKESELECTION in
     1 ) fCreatePackages ;;
     2 ) fCopyPKGStoLocal ;;
     3 ) fWipeAndReimage ;;
-    4 ) fDefaultDockAndDesktop ;;
+    4 ) fDefaultCustomizations ;;
     5 ) fRunFirstAid ;;
     6 ) fReboot ;;
     7 ) fCredits ;;
