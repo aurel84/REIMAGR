@@ -4,14 +4,14 @@
 USER=$(stat -f %Su "/dev/console")
 pathToReimagr="/Volumes/REIMAGR/"
 pathToOSX="/Volumes/Macintosh HD/"
-deletedPath="/Volumes/REIMAGR/Apps/"
-startReimage="/Volumes/REIMAGR/reimagr.command"
+deletedPath="/Volumes/REIMAGR/Apps/" # Needed to subtract this string for $items in fCreatePackages'
+startReimagr="/Volumes/REIMAGR/reimagr.command"
 
 ### function to convert apps to distributions pkgs, and finally copying them over to /Users/Shared/ ###
 fCreatePackages() {
 
   echo "Using productbuild to convert Apps to distribution PKGS..."
-  for items in /Volumes/REIMAGR/Apps/*
+  for items in "$pathToReimagr"/Apps/*
   do
 
     newPath=${items#$deletedPath}
@@ -22,7 +22,7 @@ fCreatePackages() {
 
   echo "Done converting apps to distribution pkgs."
 
-  $startReimage
+  $startReimagr
 
 }
 
@@ -34,7 +34,7 @@ fCopyPKGStoLocal()  {
 
   echo "Finished with this step."
 
-  $startReimage
+  $startReimagr
 
 }
 
@@ -76,7 +76,7 @@ fWipeAndReimage() {
 
   case $CONFIRMWIPE in
       1 ) eval "$CMD" ;;
-      2 ) $startReimage ;;
+      2 ) $startReimagr ;;
   esac
 
 }
@@ -134,7 +134,7 @@ fDefaultCustomizations() {
 
   echo "Finished with customizations."
 
-  $startReimage
+  $startReimagr
 
 }
 
@@ -151,7 +151,7 @@ fRunFirstAid() {
 
     echo "Finished with this step."
 
-    $startReimage
+    $startReimagr
 
   else
 
@@ -159,7 +159,7 @@ fRunFirstAid() {
 
     echo "Finished with this step."
 
-    $startReimage
+    $startReimagr
 
   fi
 
@@ -197,7 +197,7 @@ fCredits()  {
   echo " ...modified from Greg Neagle's Installr.sh: https://github.com/munki/installr   "
   echo
 
-  $startReimage
+  $startReimagr
 
 }
 
