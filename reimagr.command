@@ -3,9 +3,9 @@
 ### Variables ###
 USER=$(stat -f %Su "/dev/console") # Get the logged in user.  Used to determine if action should be run in terminal or desktop.
 pathToLanguage="/English.lproj/Library/Preferences/" # This is the path to to default settings for region.  Change to diff region if you are not targetting English.
-deletedPath="/Volumes/REIMAGR/Apps/" # When for loop for items is done, it adds the path.  This subtracts the path.
+deletedPath="/Volumes/REIMAGR/Apps/" # When for loop for items is done, it adds the full path.  This subtracts the path.
 startReimagr="/Volumes/REIMAGR/reimagr.command" # Restarts reimagr.command after an action is run.
-pathToReimagr="/Volumes/REIMAGR/" # Path to reimgr root directory on USB.
+pathToReimagr="/Volumes/REIMAGR/" # Path to reimagr root directory on USB.
 pathToOSX="/Volumes/Macintosh HD/" # Path to User's Macintosh HD.
 
 ### function to convert apps to distributions pkgs, and finally copying them over to /Users/Shared/ ###
