@@ -1,11 +1,12 @@
 #!/bin/bash
 
 ### Variables ###
-USER=$(stat -f %Su "/dev/console")
-pathToReimagr="/Volumes/REIMAGR/"
-pathToOSX="/Volumes/Macintosh HD/"
-deletedPath="/Volumes/REIMAGR/Apps/" # Needed to subtract this string for $items in fCreatePackages'
-startReimagr="/Volumes/REIMAGR/reimagr.command"
+USER=$(stat -f %Su "/dev/console") # Get the logged in user.  Used to determine if action should be run in terminal or desktop.
+pathToLanguage="English.lproj/Library/User Pictures/" # This is the path to to default settings for region.  Change to diff region if you are not targetting English.
+deletedPath="/Volumes/REIMAGR/Apps/" # When for loop for items is done, it adds the path.  This subtracts the path.
+startReimagr="/Volumes/REIMAGR/reimagr.command" # Restarts reimagar.command after an action is run.
+pathToReimagr="/Volumes/REIMAGR/" # Path to reimgr root directory on USB.
+pathToOSX="/Volumes/Macintosh HD/" # Path to User's Macintosh HD.
 
 ### function to convert apps to distributions pkgs, and finally copying them over to /Users/Shared/ ###
 fCreatePackages() {
@@ -44,7 +45,7 @@ fInstallPackages()  {
   for items in /Users/Shared/*
   do
 
-    echo "--installpackage '$items'"
+    echo "--installpackage '$items'" # We need to double quote $items to preserve spaces
 
   done
 
@@ -89,7 +90,7 @@ fDefaultCustomizations() {
   if [ "$(ls "$pathToReimagr"/Customizations/Dock/*)" ]; then
 
     echo "Updating the Dock settings for all users."
-    cp "$pathToReimagr"/Customizations/Dock/com.apple.dock.plist "$pathToOSX"/System/Library/User\ Template/English.lproj/Library/Preferences/
+    cp "$pathToReimagr"/Customizations/Dock/com.apple.dock.plist "$pathToOSX"/System/Library/User\ Template/"$pathToLanguage"
 
   fi
 
@@ -98,7 +99,7 @@ fDefaultCustomizations() {
   if [ "$(ls "$pathToReimagr"/Customizations/Dock/*)" ]; then
 
     echo "Updating the Login Window for all users."
-    cp "$pathToReimagr"/Customizations/LoginWindow/com.apple.loginwindow.plist "$pathToOSX"/System/Library/User\ Template/English.lproj/Library/Preferences/
+    cp "$pathToReimagr"/Customizations/LoginWindow/com.apple.loginwindow.plist "$pathToOSX"/System/Library/User\ Template/"$pathToLanguage"
 
   fi
 
@@ -127,8 +128,8 @@ fDefaultCustomizations() {
   echo "Checking if there is is a custom profile picture to be loaded onto image..."
   if [ "$(ls "$pathToReimagr"/Customizations/Profile\ Picture/*)" ]; then
 
-    echo "Copying the profile picture folder from REIMAGR to MAC OSX"
-    cp "$pathToReimagr"/Customizations/My\ Profile\ Picture "$pathToOSX"/Library/User Pictures/
+    echo "Copying the profile picture folder from REIMAGR to MAC OSX."
+    cp "$pathToReimagr"/Customizations/My\ Profile\ Picture "$pathToOSX"/Library/User\ Pictures/
 
   fi
 
@@ -194,7 +195,7 @@ fCredits()  {
   echo " Author: John Hawkins | Email: johnhawkins3d@gmail.com"
   echo
   echo " Credits: The portion of this script that runs the wipe routine was..."
-  echo " ...modified from Greg Neagle's Installr.sh: https://github.com/munki/installr   "
+  echo " ...modified from Greg Neagle's Installr.sh: https://github.com/munki/installr."
   echo
 
   $startReimagr
@@ -212,7 +213,7 @@ fExit() {
 # text-only options prompt in terminal
 echo
 echo " ########################################################################################### "
-echo " ################################ WECOME TO REIMAGR ######################################## "
+echo " ################################ WELCOME TO REIMAGR ####################################### "
 echo " ################# By: John Hawkins | Contact: johnhawkins3d@gmail.com ##################### "
 echo " ######################### PLEASE RTFM BEFORE RUNNING THE SCRIPT ########################### "
 echo " ########################################################################################### "
