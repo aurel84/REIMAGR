@@ -26,7 +26,9 @@ fCreateDistributions() {
 
     elif [ "$(ls /"$pathToReimagr"/Apps/*.pkg )" ]; then # checks if filetype ends with .pkg
 
-      productbuild --package /"$pathToReimagr"/Apps/"$newPath" /"$pathToReimagr"/Distributions/"$newPath" # runs productbuild for packages
+      pkgutuil --expand /"$pathToReimagr"/Apps/"$newPath" /"$pathToReimagr"/Apps/Flattaned_Temp; # flattens the .pkg into a temp folder that contains the distriubtion
+      mv /"$pathToReimagr"/Apps/Flattened_Temp/*.pkg /"$pathToReimagr"/Distributions/; # copies only the distribution pkg from the temp to the distributions folder
+      rm -r /"$pathToReimagr"/Apps/Flattened_Temp # remove the temmp folder
 
     fi
 
