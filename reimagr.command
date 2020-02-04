@@ -22,11 +22,11 @@ fCreateDistributions() {
 
     if [ "$(ls /"$pathToReimagr"/Apps/*.app )" ]; then # checks if filetype ends with .app
 
-      productbuild --component /"$pathToReimagr"/Apps/"$newPath" /Applications/ /"$pathToReimagr"/Deployments/"$newPath".pkg # runs productbuild for apps
+      productbuild --component /"$pathToReimagr"/Apps/"$newPath" /Applications/ /"$pathToReimagr"/Distributions/"$newPath".pkg # runs productbuild for apps
 
     elif [ "$(ls /"$pathToReimagr"/Apps/*.pkg )" ]; then # checks if filetype ends with .pkg
 
-      productbuild --package /"$pathToReimagr"/Apps/"$newPath" /"$pathToReimagr"/Deployments/"$newPath" # runs productbuild for packages
+      productbuild --package /"$pathToReimagr"/Apps/"$newPath" /"$pathToReimagr"/Distributions/"$newPath" # runs productbuild for packages
 
     fi
 
@@ -42,7 +42,7 @@ fCreateDistributions() {
 fCopyPKGStoLocal()  {
 
   echo "Copying distribution pkgs from REIMAGR to /Users/Shared..."
-  rsync -av --progress /"$pathToReimagr"/Deployments/* /"$pathToOSX"/Users/Shared
+  rsync -av --progress /"$pathToReimagr"/Distributions/* /"$pathToOSX"/Users/Shared
 
   echo "Finished with this step."
 
