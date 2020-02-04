@@ -5,26 +5,34 @@ language="English.lproj" # Go to '/System/Library/User\ Template/', replace 'Eng
 
 ### Variables ###
 USER=$(stat -f %Su "/dev/console") # Get the logged in user.  Used to determine if action should be run in terminal or desktop.
-pathToLanguage="/${language}/Library/Preferences/" # This is the path to to default settings for region.
+pathToLanguage="${language}/Library/Preferences" # This is the path to to default settings for region.
 deletedPath="/Volumes/REIMAGR/Apps/" # When for loop for items is done, it adds the path.  This subtracts the path.
 startReimagr="/Volumes/REIMAGR/reimagr.command" # Restarts reimagr.command after an action is run.
-pathToReimagr="/Volumes/REIMAGR/" # Path to reimagr root directory on USB.
-pathToOSX="/Volumes/Macintosh HD/" # Path to User's Macintosh HD.
+pathToReimagr="Volumes/REIMAGR" # Path to reimagr root directory on USB.
+pathToOSX="Volumes/Macintosh HD" # Path to User's Macintosh HD.
 
 ### function to convert apps to distributions pkgs, and finally copying them over to /Users/Shared/ ###
-fCreatePackages() {
+fCreateDistributions() {
 
-  echo "Using productbuild to convert Apps to distribution PKGS..."
-  for items in "$pathToReimagr"/Apps/*
+  echo "Using productbuild to convert Apps or Components to Distribution PKGS..."
+  for items in /"$pathToReimagr"/Apps/*
   do
 
-    newPath=${items#$deletedPath} # subtracts '/Volumes/REIMAGR/Apps/' from '/Volumes/REIMAGR/Apps/<Application.app>'
+    newPath=${items#*$deletedPath} # subtracts '/Volumes/REIMAGR/Apps/' from '/Volumes/REIMAGR/Apps/<Application.app>'
 
-    productbuild --component "$pathToReimagr"/Apps/"$newPath" /Applications/ "$pathToReimagr"/Deployments/"$newPath".pkg
+    if [ "$(ls /"$pathToReimagr"/Apps/*.app )" ]; then # checks if filetype ends with .app
+
+      productbuild --component /"$pathToReimagr"/Apps/"$newPath" /Applications/ /"$pathToReimagr"/Deployments/"$newPath".pkg # runs productbuild for apps
+
+    elif [ "$(ls /"$pathToReimagr"/Apps/*.pkg )" ]; then # checks if filetype ends with .pkg
+
+      productbuild --package /"$pathToReimagr"/Apps/"$newPath" /"$pathToReimagr"/Deployments/"$newPath" # runs productbuild for packages
+
+    fi
 
   done
 
-  echo "Done converting apps to distribution pkgs."
+  echo "Done converting Apps and Components to Distribution PKGS."
 
   $startReimagr
 
@@ -34,7 +42,7 @@ fCreatePackages() {
 fCopyPKGStoLocal()  {
 
   echo "Copying distribution pkgs from REIMAGR to /Users/Shared..."
-  rsync -av --progress "$pathToReimagr"/Deployments/* "$pathToOSX"/Users/Shared
+  rsync -av --progress /"$pathToReimagr"/Deployments/* /"$pathToOSX"/Users/Shared
 
   echo "Finished with this step."
 
@@ -57,7 +65,7 @@ fInstallPackages()  {
 ### function to get the wallpaper in the wallpaper folder and store it ###
 fWallpaper()  {
 
-  for wallpaper in "$pathToReimagr"/Customizations/Wallpaper/*
+  for wallpaper in /"$pathToReimagr"/Customizations/Wallpaper/*
   do
 
     echo "$wallpaper"
@@ -90,49 +98,49 @@ fDefaultCustomizations() {
 
   # custom dock
   echo "Checking if there is a custom dock to be loaded onto image..."
-  if [ "$(ls "$pathToReimagr"/Customizations/Dock/*)" ]; then
+  if [ "$(ls /"$pathToReimagr"/Customizations/Dock/*)" ]; then
 
     echo "Updating the Dock settings for all users."
-    cp "$pathToReimagr"/Customizations/Dock/com.apple.dock.plist "$pathToOSX"/System/Library/User\ Template/"$pathToLanguage"
+    cp /"$pathToReimagr"/Customizations/Dock/com.apple.dock.plist /"$pathToOSX"/System/Library/User\ Template/"$pathToLanguage"/
 
   fi
 
   #custom login window
   echo "Checking if there is a custom Login Window to be loaded onto image..."
-  if [ "$(ls "$pathToReimagr"/Customizations/Dock/*)" ]; then
+  if [ "$(ls /"$pathToReimagr"/Customizations/Dock/*)" ]; then
 
     echo "Updating the Login Window for all users."
-    cp "$pathToReimagr"/Customizations/LoginWindow/com.apple.loginwindow.plist "$pathToOSX"/System/Library/User\ Template/"$pathToLanguage"
+    cp /"$pathToReimagr"/Customizations/LoginWindow/com.apple.loginwindow.plist /"$pathToOSX"/System/Library/User\ Template/"$pathToLanguage"/
 
   fi
 
   # custom bookmarks
   echo "Checking if there are any User-Specific Bookmarks to be loaded onto image..."
-  if [ "$(ls "$pathToReimagr"/Customizations/Bookmarks/*.webloc)" ]; then
+  if [ "$(ls /"$pathToReimagr"/Customizations/Bookmarks/*.webloc)" ]; then
 
     echo "Adding User Specific Bookmarks to /Users/Shared."
-    cp "$pathToReimagr"/Customizations/Bookmarks/* "$pathToOSX"/Users/Shared/
+    cp /"$pathToReimagr"/Customizations/Bookmarks/* /"$pathToOSX"/Users/Shared/
 
   fi
 
   # custom wallpaper
   echo "Checking if there is is a custom wallpaper to be loaded onto image..."
-  if [ "$(ls "$pathToReimagr"/Customizations/Wallpaper/*)" ]; then
+  if [ "$(ls /"$pathToReimagr"/Customizations/Wallpaper/*)" ]; then
 
     echo "Yes, found one... renaming the default wallpaper for Catalina to Catalina.orignal.heic..."
-    mv "$pathToOSX"/System/Library/Desktop\ Pictures/Catalina.heic "$pathToOSX"/System/Library/Desktop\ Pictures/Catalina.original.heic
+    mv /"$pathToOSX"/System/Library/Desktop\ Pictures/Catalina.heic /"$pathToOSX"/System/Library/Desktop\ Pictures/Catalina.original.heic
 
     echo "Copying the wallpaper from REIMAGR to MAC OSX and naming it Catalina.heic."
-    cp "$(fWallpaper)" "$pathToOSX"/System/Library/Desktop\ Pictures/Catalina.heic
+    cp "$(fWallpaper)" /"$pathToOSX"/System/Library/Desktop\ Pictures/Catalina.heic
 
   fi
 
   # custom profile picture
   echo "Checking if there is is a custom profile picture to be loaded onto image..."
-  if [ "$(ls "$pathToReimagr"/Customizations/Profile\ Picture/*)" ]; then
+  if [ "$(ls /"$pathToReimagr"/Customizations/Profile\ Picture/*)" ]; then
 
     echo "Copying the profile picture folder from REIMAGR to MAC OSX."
-    cp "$pathToReimagr"/Customizations/My\ Profile\ Picture "$pathToOSX"/Library/User\ Pictures/
+    cp /"$pathToReimagr"/Customizations/My\ Profile\ Picture /"$pathToOSX"/Library/User\ Pictures/
 
   fi
 
@@ -235,7 +243,7 @@ read -r -p "Pick an action # (1-8): " MAKESELECTION
 
 # actions to be taken by the text only options above
 case $MAKESELECTION in
-    1 ) fCreatePackages ;;
+    1 ) fCreateDistributions ;;
     2 ) fCopyPKGStoLocal ;;
     3 ) fWipeAndReimage ;;
     4 ) fDefaultCustomizations ;;
