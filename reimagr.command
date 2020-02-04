@@ -20,15 +20,19 @@ fCreateDistributions() {
 
     newPath=${items#*$deletedPath} # subtracts '/Volumes/REIMAGR/Apps/' from '/Volumes/REIMAGR/Apps/<Application.app>'
 
-    if [ "$(ls /"$pathToReimagr"/Apps/*.app )" ]; then # checks if filetype ends with .app
+    if [[ $items == *.app ]]; then # checks if filetype ends with .app
 
+      echo "Converting $newPath to distribution package and placing it in /$pathToReimagr/Distributions"
       productbuild --component /"$pathToReimagr"/Apps/"$newPath" /Applications/ /"$pathToReimagr"/Distributions/"$newPath".pkg # runs productbuild for apps
 
-    elif [ "$(ls /"$pathToReimagr"/Apps/*.pkg )" ]; then # checks if filetype ends with .pkg
+    elif [[ $items == *.pkg ]]; then # checks if filetype ends with .pkg
 
-      pkgutuil --expand /"$pathToReimagr"/Apps/"$newPath" /"$pathToReimagr"/Apps/Flattaned_Temp; # flattens the .pkg into a temp folder that contains the distriubtion
-      mv /"$pathToReimagr"/Apps/Flattened_Temp/*.pkg /"$pathToReimagr"/Distributions/; # copies only the distribution pkg from the temp to the distributions folder
-      rm -r /"$pathToReimagr"/Apps/Flattened_Temp # remove the temmp folder
+      echo "Converting $newPath to distribution package and placing it in /$pathToReimagr/Distributions"
+      pkgutil --expand /"$pathToReimagr"/Apps/"$newPath" /"$pathToReimagr"/Apps/Product_Flattened; # flattens the .pkg into a flat archive folder
+      pkgutil --flatten /"$pathToReimagr"/Apps/Product_Flattened /"$pathToReimagr"/Distributions/"$newPath" # converts flat archive into a distribution pkg
+
+      echo "Removing flat archive for $items"
+      rm -r /"$pathToReimagr"/Apps/Product_Flattened # removes the flat archive folder
 
     fi
 
@@ -44,7 +48,7 @@ fCreateDistributions() {
 fCopyPKGStoLocal()  {
 
   echo "Copying distribution pkgs from REIMAGR to /Users/Shared..."
-  rsync -av --progress /"$pathToReimagr"/Distributions/* /"$pathToOSX"/Users/Shared
+  rsync -av --progress /"$pathToReimagr"/Distributions/*.pkg /"$pathToOSX"/Users/Shared
 
   echo "Finished with this step."
 
