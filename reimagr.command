@@ -59,7 +59,7 @@ fCopyPKGStoLocal()  {
 ### function to get the name of each distribution names and store them ###
 fInstallPackages()  {
 
-  for items in /Users/Shared/*
+  for items in /Users/Shared/*.pkg
   do
 
     echo "--installpackage '$items'" # We need to double quote $items to preserve spaces for pkgs in /Users/Shard/
@@ -83,7 +83,7 @@ fWallpaper()  {
 ### function to wipe, re-image, and install applications ###
 fWipeAndReimage() {
 
-  CMD=$(echo "/Volumes/REIMAGR/Install macOS"*.app/Contents/Resources/startosinstall --agreetolicense --nointeraction "$(fInstallPackages)" --eraseinstall)
+  CMD=$(echo "/'$pathToReimagr'/Install"*.app/Contents/Resources/startosinstall --agreetolicense --nointeraction "$(fInstallPackages)" --eraseinstall)
 
   echo
   echo "This action will WIPE and REIMAGE this MacBook.  All data will be erased."
