@@ -3,9 +3,9 @@ REIMGAR allows for building and deploying OS X Images with your own User Customi
 Apps, Pkgs, Wallpaper, and Plists (for Dock and Login Window) to build your own custom image.  REIMAGR utilizes Mac OS X Installer (currently on Catalina) by leveraging it's tools to automate the imaging process.  
 
 ### RECOMMENDED EQUIPMENT ###
-1.) USB Thumb Drive (3.0 or faster) with at least 64 GB of storage
-2.) MacBook (any model) (technician device) <- the device that you will be creating your customizations on
-3.) MacBook (any model) (client device) <- the device that you you will be reimaging and applying the customizations
+- USB Thumb Drive (3.0 or faster) with at least 64 GB of storage
+- MacBook (any model) (technician device) <- the device that you will be creating your customizations on
+- MacBook (any model) (client device) <- the device that you you will be reimaging and applying the customizations
 
 ### SETTING UP REIMAGR ###
 1.) Prepping the USB Thumb Drive (done on a technician MacBook)
