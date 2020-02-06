@@ -40,7 +40,9 @@ Volumes > REIMAGR:
 - Customize the Dock for the Template Account
 
 3.) Insert the USB Thumb Drive for REIMAGR:
-- DOCK | Go to: ~/Library/Preferences > Copy 'com.apple.dock.plist' >  paste it to /REIMAGR/Customizations/Dock
-- LOGIN WINDOW | Go to: /Library/Preferences > Copy 'com.apple.loginwindow.plist' > paste it to /REIMAGR/Customizations/LoginWindow
-- WALLPAPER | paste it to /REIMAGR/Customizations/Wallpaper
-- BOOKMARKS | Open Safari > Go to Desired Website(s) > Drag the URL to /REIMAGR/Customizations/Bookmarks
+- Dock | Go to: ~/Library/Preferences > Copy 'com.apple.dock.plist' >  paste it to /REIMAGR/Customizations/Dock
+- Login Window | Go to: /Library/Preferences > Copy 'com.apple.loginwindow.plist' > 
+paste it to /REIMAGR/Customizations/LoginWindow
+- Wallpaper | paste it to /REIMAGR/Customizations/Wallpaper
+- Bookmarks | Open Safari > Go to Desired Website(s) > Drag the URL to /REIMAGR/Customizations/Bookmarks
+- Profile Picture | Paste Picture(s) to /REIMAGR/Customizations/My Profile Pictures
