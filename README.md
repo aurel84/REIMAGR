@@ -19,7 +19,7 @@ Apps, Pkgs, Wallpaper, and Plists (for Dock and Login Window) to build your own 
 - REIMAGR's root directory should look like this:
 
 Volumes > REIMAGR:
-* Install macOS Catalina.app <- Place the OSX Installer in the Root Directory
+* Install macOS Catalina.app <- Place the OSX Installer in the Root Directory of REIMAGR
 * Apps <----------------------- Where .app files and .pkg files go
 * Customizations <------------- Directory for Wallpaper, Bookmarks, Dock, LoginWindow, Profile Pictures
 * Distributions <-------------- REIMAGR converts .app and .pkg files from Apps and places them here
@@ -47,8 +47,8 @@ Volumes > REIMAGR:
 - Profile Picture | Paste Picture(s) to /REIMAGR/Customizations/My Profile Pictures
 
 ### CREATING THE DISTRIBUTION PACKAGES FOR YOUR IMAGE ###
-- Copy .app files from /Applications to /REIMAGR/Apps
-- Copy .pkg files to /REIMAGR/Apps
+- Copy .app files from /Applications to /Volumes/REIMAGR/Apps
+- Copy .pkg files to /Volumes/REIMAGR/Apps
 - Run REIMAGR by launching /REIMAGR/reimagr.command > Select Option (1) to convert your applications to Distros
 - Disconnect the USB for REIMAGR from the Technicians Computer
 
