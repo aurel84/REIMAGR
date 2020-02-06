@@ -33,11 +33,11 @@ Volumes > REIMAGR:
 
 2.) PLIST files for User Customizations:
     
-- macOS Dock: Open 'Go To Folder', paste the following: '~/Library/Preferences/' > 
-    locate 'com.apple.dock.plist' > copy/paste it the following location: '/Volumes/REIMAGR/Customizations/Dock/'
+- macOS Dock: Open 'Go To Folder' > paste the following: 
+'~/Library/Preferences/' > locate 'com.apple.dock.plist' > copy/paste it the following location: '/Volumes/REIMAGR/Customizations/Dock/'
 
-- macOS LoginWindow: Open 'Go To Folder', paste the following: '/Library/Preferences/' >
-    locate 'com.apple.loginwindow.plist' > copy/paste it to the following location: '/Volumes/REIMAGR/Customizations/LoginWindow/'
+- macOS LoginWindow: Open 'Go To Folder' > paste the following: 
+'/Library/Preferences/' > locate 'com.apple.loginwindow.plist' > copy/paste it to the following location: '/Volumes/REIMAGR/Customizations/LoginWindow/'
     
 3.) Wallpaper, Profile Picture, and Bookmarks:
 
