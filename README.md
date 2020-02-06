@@ -34,6 +34,8 @@ Volumes > REIMAGR:
 
     * macOS LoginWindow <- Open 'Go To Folder', paste the following: '/Library/Preferences/' >
     locate 'com.apple.loginwindow.plist' > copy/paste it to the following location: '/Volumes/REIMAGR/Customizations/LoginWindow/'
+    
+- Wallpaper, Profile Picture, and Bookmarks:
 
     * Wallpaper <- Grab any Wallpaper that you want to set as the default for all users >
 place the Wallpaper in the following location: '/Volumes/REIMAGR/Customizations/Wallpaper/'
