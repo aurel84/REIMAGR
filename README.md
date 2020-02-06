@@ -32,30 +32,15 @@ Volumes > REIMAGR:
 - Open Terminal > Type the following in Terminal: softwareupdate --fetch-full-installer --full-installer-version 10.15.x (Source: https://scriptingosx.com/2019/10/download-a-full-install-macos-app-with-softwareupdate-in-catalina/)
 
 ### CREATING YOUR CUSTOMIZED TEMPLATE ###
-1.) On a Technician's computer:
-- Create a Local Account, that will be used as a Template >
-- On the Local Account:
-* Install Applications that do not come standard with MacOS Catalina
-* Customize the Dock
-* Go to Users & Groups and update any settings corresponding with Login Window.
+1.) On a Technician's computer, Create a Local Account, which will be used as a Template.
 
-2.) PLIST files for User Customizations:
-    
-- macOS Dock | Open 'Go To Folder' > paste the following: 
-'~/Library/Preferences/' > locate 'com.apple.dock.plist' > copy/paste it the following location: '/Volumes/REIMAGR/Customizations/Dock/'
+2.) Log into the Template Account, perform the following actions:
+- Install Applications that do not come standard with MacOS Catalina
+- Open Users & Groups, change any settings under Login Options
+- Customize the Dock for the Template Account
 
-- macOS LoginWindow | Open 'Go To Folder' > paste the following: 
-'/Library/Preferences/' > locate 'com.apple.loginwindow.plist' > copy/paste it to the following location: '/Volumes/REIMAGR/Customizations/LoginWindow/'
-    
-3.) Wallpaper, Profile Picture, and Bookmarks:
-
-- Wallpaper | Grab any Wallpaper that you want to set as the default for all users >
-place the Wallpaper in the following location: '/Volumes/REIMAGR/Customizations/Wallpaper/'
-
-- Profile Picture(s) | Grab any Profile pictures that you want to have preinstalled with the image >
-place these images in the following location: '/Volumes/REIMAGR/Customizations/My Profile Picture'
-
-- Bookmarks | Grab Apple Bookmark files (.webloc extensions) that you want to have preinstalled with the image >
-place these bookmark files in the following locatino: '/Volumes/REIMAGR/Customizations/Bookmarks/'
-
-
+3.) Insert the USB Thumb Drive for REIMAGR:
+- DOCK | Go to: ~/Library/Preferences > Copy 'com.apple.dock.plist' >  paste it to /REIMAGR/Customizations/Dock
+- LOGIN WINDOW | Go to: /Library/Preferences > Copy 'com.apple.loginwindow.plist' > paste it to /REIMAGR/Customizations/LoginWindow
+- WALLPAPER | paste it to /REIMAGR/Customizations/Wallpaper
+- BOOKMARKS | Open Safari > Go to Desired Website(s) > Drag the URL to /REIMAGR/Customizations/Bookmarks
