@@ -25,11 +25,19 @@ Volumes > REIMAGR:
 * Distributions 
 * reimagr.command
 
-### RECOMMENDED / REQUIRED APPLICATIONS ###
+### REQUIRED APPLICATIONS ###
 1.) Install macOS Catalina.app (can be acquired two ways):
 
 - Open App Store > search for macOS Catalina (Source: https://apps.apple.com/us/app/macos-catalina/id1466841314?ls=1&mt=12)
 - Open Terminal > Type the following in Terminal: softwareupdate --fetch-full-installer --full-installer-version 10.15.x (Source: https://scriptingosx.com/2019/10/download-a-full-install-macos-app-with-softwareupdate-in-catalina/)
+
+### CREATING YOUR CUSTOMIZED TEMPLATE ###
+1.) On a Technician's computer:
+- Create a Local Account, that will be used as a Template >
+- On the Local Account:
+* Install Applications that do not come standard with MacOS Catalina
+* Customize the Dock
+* Go to Users & Groups and update any settings corresponding with Login Window.
 
 2.) PLIST files for User Customizations:
     
