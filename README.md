@@ -26,7 +26,10 @@ Volumes > REIMAGR:
 * reimagr.command
 
 ### RECOMMENDED / REQUIRED APPLICATIONS ###
-1.) Install macOS Catalina.app <- Get it here: https://apps.apple.com/us/app/macos-catalina/id1466841314?ls=1&mt=12
+1.) Install macOS Catalina.app (can be acquired two ways):
+
+- Open App Store > search for macOS Catalina (Source: https://apps.apple.com/us/app/macos-catalina/id1466841314?ls=1&mt=12)
+- Open Terminal > Type the following in Terminal: softwareupdate --fetch-full-installer --full-installer-version 10.15.x (Source: https://scriptingosx.com/2019/10/download-a-full-install-macos-app-with-softwareupdate-in-catalina/)
 
 2.) PLIST files for User Customizations:
     
