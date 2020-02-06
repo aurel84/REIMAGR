@@ -22,8 +22,14 @@ fCreateDistributions() {
 
     if [[ $items == *.app ]]; then # checks if filetype ends with .app
 
+      mkdir -p /"$pathToReimagr"/Apps/Component
+
       echo "Converting $newPath to distribution package and placing it in /$pathToReimagr/Distributions"
-      productbuild --component /"$pathToReimagr"/Apps/"$newPath" /Applications/ /"$pathToReimagr"/Distributions/"$newPath".pkg # runs productbuild for apps
+      pkgbuild --component /"$pathToReimagr"/Apps/"$newPath" --install /Applications /"$pathToReimagr"/Apps/Component/TempComponent.pkg
+      productbuild --package /"$pathToReimagr"/Apps/Component/TempComponent.pkg /"$pathToReimagr"/Distributions/"$newPath".pkg
+
+      echo "Removing temp component folder for $items"
+      rm -r /"$pathToReimagr"/Apps/Component
 
     elif [[ $items == *.pkg ]]; then # checks if filetype ends with .pkg
 
@@ -59,10 +65,11 @@ fCopyPKGStoLocal()  {
 ### function to get the name of each distribution names and store them ###
 fInstallPackages()  {
 
-  for items in /Users/Shared/*.pkg
+  packages=( /Users/Shared/*.pkg )
+  for item in "${packages[@]}"
   do
 
-    echo "--installpackage '$items'" # We need to double quote $items to preserve spaces for pkgs in /Users/Shard/
+    echo "--installpackage '$item'"
 
   done
 
@@ -83,7 +90,7 @@ fWallpaper()  {
 ### function to wipe, re-image, and install applications ###
 fWipeAndReimage() {
 
-  CMD=$(echo "/'$pathToReimagr'/Install"*.app/Contents/Resources/startosinstall --agreetolicense --nointeraction "$(fInstallPackages)" --eraseinstall)
+  CMD=$(echo "/'$pathToReimagr'/Install"*.app/Contents/Resources/startosinstall --agreetolicense --nointeraction $(fInstallPackages) --eraseinstall)
 
   echo
   echo "This action will WIPE and REIMAGE this MacBook.  All data will be erased."
@@ -143,10 +150,10 @@ fDefaultCustomizations() {
 
   # custom profile picture
   echo "Checking if there is is a custom profile picture to be loaded onto image..."
-  if [ "$(ls /"$pathToReimagr"/Customizations/Profile\ Picture/*)" ]; then
+  if [ "$(ls /"$pathToReimagr"/Customizations/My\ Profile\ Picture/*)" ]; then
 
     echo "Copying the profile picture folder from REIMAGR to MAC OSX."
-    cp /"$pathToReimagr"/Customizations/My\ Profile\ Picture /"$pathToOSX"/Library/User\ Pictures/
+    cp -r /"$pathToReimagr"/Customizations/My\ Profile\ Picture /"$pathToOSX"/Library/User\ Pictures/
 
   fi
 
