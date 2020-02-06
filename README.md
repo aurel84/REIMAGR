@@ -39,10 +39,14 @@ Volumes > REIMAGR:
 - Open Users & Groups, change any settings under Login Options
 - Customize the Dock for the Template Account
 
-3.) Insert the USB Thumb Drive for REIMAGR:
+3.) Insert USB for REIMAGR into your Technician's Computer:
 - Dock | Go to: ~/Library/Preferences > Copy 'com.apple.dock.plist' >  paste it to /REIMAGR/Customizations/Dock
-- Login Window | Go to: /Library/Preferences > Copy 'com.apple.loginwindow.plist' > 
-paste it to /REIMAGR/Customizations/LoginWindow
+- Login Window | Go to: /Library/Preferences > Copy 'com.apple.loginwindow.plist' > paste it to /REIMAGR/Customizations/LoginWindow
 - Wallpaper | paste it to /REIMAGR/Customizations/Wallpaper
 - Bookmarks | Open Safari > Go to Desired Website(s) > Drag the URL to /REIMAGR/Customizations/Bookmarks
 - Profile Picture | Paste Picture(s) to /REIMAGR/Customizations/My Profile Pictures
+
+### CREATING THE DISTRIBUTION PACKAGES FOR YOUR IMAGE ###
+- Copy .app files from /Applications to /REIMAGR/Apps
+- Copy .pkg files to /REIMAGR/Apps
+- Run REIMAGR by launching /REIMAGR/reimagr.command > Select Option (1) to convert your applications to Distros
