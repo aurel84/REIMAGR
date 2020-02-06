@@ -33,21 +33,21 @@ Volumes > REIMAGR:
 
 2.) PLIST files for User Customizations:
     
-- macOS Dock <- Open 'Go To Folder', paste the following: '~/Library/Preferences/' > 
+- macOS Dock: Open 'Go To Folder', paste the following: '~/Library/Preferences/' > 
     locate 'com.apple.dock.plist' > copy/paste it the following location: '/Volumes/REIMAGR/Customizations/Dock/'
 
-- macOS LoginWindow <- Open 'Go To Folder', paste the following: '/Library/Preferences/' >
+- macOS LoginWindow: Open 'Go To Folder', paste the following: '/Library/Preferences/' >
     locate 'com.apple.loginwindow.plist' > copy/paste it to the following location: '/Volumes/REIMAGR/Customizations/LoginWindow/'
     
 3.) Wallpaper, Profile Picture, and Bookmarks:
 
-- Wallpaper <- Grab any Wallpaper that you want to set as the default for all users >
+- Wallpaper: Grab any Wallpaper that you want to set as the default for all users >
 place the Wallpaper in the following location: '/Volumes/REIMAGR/Customizations/Wallpaper/'
 
-- Profile Picture(s) < - Grab any Profile pictures that you want to have preinstalled with the image >
+- Profile Picture(s): Grab any Profile pictures that you want to have preinstalled with the image >
 place these images in the following location: '/Volumes/REIMAGR/Customizations/My Profile Picture'
 
-- Bookmarks <- Grab Apple Bookmark files (.webloc extensions) that you want to have preinstalled with the image >
+- Bookmarks: Grab Apple Bookmark files (.webloc extensions) that you want to have preinstalled with the image >
 place these bookmark files in the following locatino: '/Volumes/REIMAGR/Customizations/Bookmarks/'
 
 
