@@ -27,6 +27,7 @@ Volumes > REIMAGR:
 
 ### RECOMMENDED / REQUIRED APPLICATIONS ###
 1.) Install macOS Catalina.app <- Get it here: https://apps.apple.com/us/app/macos-catalina/id1466841314?ls=1&mt=12
+
 2.) PLIST files for User Customizations:
     
 - macOS Dock <- Open 'Go To Folder', paste the following: '~/Library/Preferences/' > 
