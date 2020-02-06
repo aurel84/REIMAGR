@@ -22,14 +22,14 @@ fCreateDistributions() {
 
     if [[ $items == *.app ]]; then # checks if filetype ends with .app
 
-      mkdir -p /"$pathToReimagr"/Apps/Component
+      mkdir -p /"$pathToReimagr"/Apps/Component # make temp directory to store components
 
       echo "Converting $newPath to distribution package and placing it in /$pathToReimagr/Distributions"
-      pkgbuild --component /"$pathToReimagr"/Apps/"$newPath" --install /Applications /"$pathToReimagr"/Apps/Component/TempComponent.pkg
-      productbuild --package /"$pathToReimagr"/Apps/Component/TempComponent.pkg /"$pathToReimagr"/Distributions/"$newPath".pkg
+      pkgbuild --component /"$pathToReimagr"/Apps/"$newPath" --install /Applications /"$pathToReimagr"/Apps/Component/TempComponent.pkg # places packages and components in temp directory
+      productbuild --package /"$pathToReimagr"/Apps/Component/TempComponent.pkg /"$pathToReimagr"/Distributions/"$newPath".pkg # converts the package in the temp directory to a product
 
       echo "Removing temp component folder for $items"
-      rm -r /"$pathToReimagr"/Apps/Component
+      rm -r /"$pathToReimagr"/Apps/Component # remove temp directory after the app is converted to a distribution
 
     elif [[ $items == *.pkg ]]; then # checks if filetype ends with .pkg
 
