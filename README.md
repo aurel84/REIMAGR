@@ -50,3 +50,26 @@ Volumes > REIMAGR:
 - Copy .app files from /Applications to /REIMAGR/Apps
 - Copy .pkg files to /REIMAGR/Apps
 - Run REIMAGR by launching /REIMAGR/reimagr.command > Select Option (1) to convert your applications to Distros
+- Disconnect the USB for REIMAGR from the Technicians Computer
+
+### HOW TO USE REIMAGR ###
+1.) Acquire a Client Devices to Run REIMAGR > Get to the Computer's Desktop
+
+2.) Plug REIMAGR into the Client Device > Go to /Volumes/REIMAGR/reimagr.command
+
+3.) If Transferring Applicaitons to Client Device, select Option (2)
+
+4.) Once all Applications are transferred to Client Device, Select Option (3) to Wipe Device, then (1 to Confirm
+
+#### ALL YOUR DATA WILL BE LOST.  YOU CANNOT UNDUE THIS STEP ###
+
+5.) After Wipe / Reimage process is complete, you will be at the Apple Setup Screen(s):
+- Immediately Shut Down MacBook Book, then Power it Back on, holding (CMD) + (R) Keys to Boot into Recovery Mode >
+- In Recovery Mode, Go to Utilities > Terminal >
+- In Terminal, type the following Command: /Volumes/REIMAGR/startimage.command <enter >
+- Select option (4) to Load Desktop Customizations onto the Client >
+- Select option (5) to run First Aid (not required but recommended) >
+- Select option (6) to Reboot Client MacBook.
+  
+6.) Go throug the Apple Setup Process.  After you have created a Local Account, you should be at the Desktop, and should see your Customizations and Installed Apps.  You are done.  
+
