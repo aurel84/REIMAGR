@@ -87,10 +87,27 @@ fWallpaper()  {
 
 }
 
+### function to determine if user has distribution packages in /Users/Shared, and starts startosinstall with the appropriate args ###
+fstartOsInstall() {
+
+  if ls /Users/Shared/*.pkg &> /dev/null; then
+
+    echo "Found Distribution Packages in /Users/Shared.  Imaging this MacBook and installing Applications."
+    eval "$(echo "/'$pathToReimagr'/Install"*.app/Contents/Resources/startosinstall --agreetolicense --nointeraction $(fInstallPackages) --eraseinstall)"
+
+  else
+
+    echo "No Distribution Packages in /Users/Shared.  Imaging this MacBook with only Default Applications."
+    eval "$(echo "/'$pathToReimagr'/Install"*.app/Contents/Resources/startosinstall --agreetolicense --nointeraction --eraseinstall)"
+
+  fi
+
+}
+
 ### function to wipe, re-image, and install applications ###
 fWipeAndReimage() {
 
-  CMD=$(echo "/'$pathToReimagr'/Install"*.app/Contents/Resources/startosinstall --agreetolicense --nointeraction $(fInstallPackages) --eraseinstall)
+  # CMD=$(echo "/'$pathToReimagr'/Install"*.app/Contents/Resources/startosinstall --agreetolicense --nointeraction $(fInstallPackages) --eraseinstall)
 
   echo
   echo "This action will WIPE and REIMAGE this MacBook.  All data will be erased."
@@ -100,8 +117,8 @@ fWipeAndReimage() {
   read -r -p "Pick an action # (1-2): " CONFIRMWIPE
 
   case $CONFIRMWIPE in
-      1 ) eval "$CMD" ;;
-      2 ) $startReimagr ;;
+      1 ) fstartOsInstall ;;
+      2 ) startReimagr ;;
   esac
 
 }
@@ -120,19 +137,25 @@ fDefaultCustomizations() {
 
   #custom login window
   echo "Checking if there is a custom Login Window to be loaded onto image..."
-  if [ "$(ls /"$pathToReimagr"/Customizations/Dock/*)" ]; then
+  if [ "$(ls /"$pathToReimagr"/Customizations/LoginWindow/*)" ]; then
 
-    echo "Updating the Login Window for all users."
-    cp /"$pathToReimagr"/Customizations/LoginWindow/com.apple.loginwindow.plist /"$pathToOSX"/System/Library/User\ Template/"$pathToLanguage"/
+
+    echo "Changing login window settings to display name and password"
+    rm /"$pathToOSX"/Library/Preferences/com.apple.loginwindow.plist
+    cp /"$pathToReimagr"/Customizations/LoginWindow/com.apple.loginwindow.plist /"$pathToOSX"/Library/Preferences/
 
   fi
+
+  echo "Changing login window settings to display name and password"
+  rm /"$pathToOSX"/Library/Preferences/com.apple.loginwindow.plist
+  cp /"$pathToReimagr"/Customizations/LoginWindow/com.apple.loginwindow.plist /"$pathToOSX"/Library/Preferences/
 
   # custom bookmarks
   echo "Checking if there are any User-Specific Bookmarks to be loaded onto image..."
   if [ "$(ls /"$pathToReimagr"/Customizations/Bookmarks/*.webloc)" ]; then
 
     echo "Adding User Specific Bookmarks to /Users/Shared."
-    cp /"$pathToReimagr"/Customizations/Bookmarks/* /"$pathToOSX"/Users/Shared/
+    cp -r /"$pathToReimagr"/Customizations/Bookmarks /"$pathToOSX"/Users/Shared/
 
   fi
 
