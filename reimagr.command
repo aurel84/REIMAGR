@@ -185,13 +185,8 @@ fDefaultCustomizations() {
 ### function to run check disk, and run first aid if necessary ###
 fRunFirstAid() {
 
-  checkVolume=$(diskutil verifyVolume / | grep "0"; echo $?)
 
-  diskutil verifyVolume /
-
-  if [ "$checkVolume" != 0 ]; then
-
-    echo "Finished scanning Volume, permissions appear to be OK";
+  if diskutil verifyVolume / | grep "OK"; then
 
     echo "Finished with this step."
 
