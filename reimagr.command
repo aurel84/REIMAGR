@@ -146,10 +146,6 @@ fDefaultCustomizations() {
 
   fi
 
-  echo "Changing login window settings to display name and password"
-  rm /"$pathToOSX"/Library/Preferences/com.apple.loginwindow.plist
-  cp /"$pathToReimagr"/Customizations/LoginWindow/com.apple.loginwindow.plist /"$pathToOSX"/Library/Preferences/
-
   # custom bookmarks
   echo "Checking if there are any User-Specific Bookmarks to be loaded onto image..."
   if [ "$(ls /"$pathToReimagr"/Customizations/Bookmarks/*.webloc)" ]; then
