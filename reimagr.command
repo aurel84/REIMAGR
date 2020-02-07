@@ -107,8 +107,6 @@ fstartOsInstall() {
 ### function to wipe, re-image, and install applications ###
 fWipeAndReimage() {
 
-  # CMD=$(echo "/'$pathToReimagr'/Install"*.app/Contents/Resources/startosinstall --agreetolicense --nointeraction $(fInstallPackages) --eraseinstall)
-
   echo
   echo "This action will WIPE and REIMAGE this MacBook.  All data will be erased."
   echo "Do you want to continue?"
