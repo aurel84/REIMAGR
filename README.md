@@ -68,5 +68,5 @@ Volumes > REIMAGR:
 - Select option (5) to run First Aid (not required but recommended) >
 - Select option (6) to Reboot Client MacBook.
   
-2.) Go throug the Apple Setup Process.  After you have created a Local Account, you should be at the Desktop, and should see your Customizations and Installed Apps.  You are done.  
+2.) Go throug the Apple Setup Process.  After you have created a Local Account, you should be at the Desktop, and should see your Customizations and Installed Apps.  You are done with imaging steps, and the first account creation.  If you are configuring any further user accounts, the templates for them will also mirrior the first account, going forward.
 
