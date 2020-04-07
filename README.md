@@ -52,7 +52,7 @@ Volumes > REIMAGR:
 - Run REIMAGR by launching /REIMAGR/reimagr.command > Select Option (1) to convert your applications to Distros
 - Disconnect the USB for REIMAGR from the Technicians Computer
 
-### HOW TO USE REIMAGR (STEPS BELOW CAN BE DONE ON MULITPLE CLIENT DEVICES) ###
+### HOW TO USE REIMAGR (STEPS BELOW CAN BE DONE ON MULTIPLE CLIENT DEVICES) ###
 1.) Acquire a Client Devices to Run REIMAGR > Get to the Computer's Desktop
 - Plug REIMAGR into the Client Device > Go to /Volumes/REIMAGR/reimagr.command
 - If Transferring Applicaitons to Client Device, select Option (2)
